@@ -36,13 +36,46 @@
                                     >
                                 </div>
                             </div>
+
+                            <div class="mm-field">
+                                <label for="mm_media_caption" class="mm-label">Media Caption *</label>
+
+                                <div class="mm-control">
+                                    <input
+                                        id="mm_media_caption"
+                                        ref="name"
+                                        type="text"
+                                        class="mm-input"
+                                        v-model="form.caption"
+                                        required
+                                        :disabled="form.processing"
+                                        @keydown.enter.prevent="submit"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="mm-field">
+                                <label for="mm_media_alt_text" class="mm-label">Media Alt Text *</label>
+
+                                <div class="mm-control">
+                                    <input
+                                        id="mm_media_alt_text"
+                                        ref="name"
+                                        type="text"
+                                        class="mm-input"
+                                        v-model="form.alt_text"
+                                        required
+                                        :disabled="form.processing"
+                                        @keydown.enter.prevent="submit"
+                                    >
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
                     <template v-else>
-                        <!-- Media name -->
                         <div class="mm-field">
-                            <label for="mm_media_name" class="mm-label">Media Name *</label>
+                            <label for="mm_media_name" class="mm-label">File Name *</label>
 
                             <div class="mm-control">
                                 <input
@@ -51,6 +84,40 @@
                                     type="text"
                                     class="mm-input"
                                     v-model="form.name"
+                                    required
+                                    :disabled="form.processing"
+                                    @keydown.enter.prevent="submit"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="mm-field">
+                            <label for="mm_media_caption" class="mm-label">File Caption *</label>
+
+                            <div class="mm-control">
+                                <input
+                                    id="mm_media_caption"
+                                    ref="name"
+                                    type="text"
+                                    class="mm-input"
+                                    v-model="form.caption"
+                                    required
+                                    :disabled="form.processing"
+                                    @keydown.enter.prevent="submit"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="mm-field">
+                            <label for="mm_media_alt_text" class="mm-label">File Alt Text *</label>
+
+                            <div class="mm-control">
+                                <input
+                                    id="mm_media_alt_text"
+                                    ref="name"
+                                    type="text"
+                                    class="mm-input"
+                                    v-model="form.alt_text"
                                     required
                                     :disabled="form.processing"
                                     @keydown.enter.prevent="submit"
@@ -87,7 +154,9 @@
     const initialValues = function () {
         return {
             id: null,
-            name: ''
+            name: '',
+            caption: '',
+            alt_text: '',
         }
     };
 
@@ -125,7 +194,9 @@
                 if (isOpen) {
                     this.form = {
                         id: this.media.id,
-                        name: this.media.name
+                        name: this.media.name,
+                        caption: this.media.caption,
+                        alt_text: this.media.alt_text
                     };
                     
                     this.$nextTick(() => this.$refs.name.focus());
@@ -144,7 +215,9 @@
 
             onSuccess() {
                 let properties = {
-                    name: this.form.name
+                    name: this.form.name,
+                    caption: this.form.caption,
+                    alt_text: this.form.alt_text
                 };
 
                 this.updateMedia({
